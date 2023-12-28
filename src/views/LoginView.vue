@@ -7,10 +7,10 @@ function doLogin() {
 </script>
 <template>
   <section class="mt-12 flex gap-5">
-    <div class="w-[50%]">
-      <img src="../assets/login.jpg" alt="login picture" class="w-full h-full" />
+    <div class="w-[50%] h-[100vh]">
+      <img src="../assets/login.jpg" alt="login-picture" class="w-full h-full" />
     </div>
-    <form class="w-[50%] flex flex-col gap-5" @submit.prevent="doLogin">
+    <form class="w-[50%] flex flex-col gap-5 lg:self-center" @submit.prevent="doLogin">
       <h1 class="self-center font-semibold text-2xl">Login</h1>
       <div>
         <label for="user">Usuario: </label>
@@ -38,15 +38,15 @@ function doLogin() {
         Entrar
       </button>
 
-      <RouterLink to="/lostpassword" class="text-xl underline text-slate-500"
-        >Perdeu a Senha?</RouterLink
-      >
+      <RouterLink to="/lostpassword" class="w-40">
+        <h1 class="text-xl underline text-slate-500 self-start">Perdeu a Senha?</h1>
+      </RouterLink>
 
       <h1 class="font-medium text-xl">Cadrastre-se</h1>
       <p>Ainda não possui conta? Cadastre-se no site.</p>
-      <RouterLink to="/createAccount">
+      <RouterLink to="/createAccount" class="w-28">
         <button
-          class="bg-blue-700 p-3 w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all mb-2"
+          class="bg-blue-700 p-3 w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
         >
           Cadastro
         </button>

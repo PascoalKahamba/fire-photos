@@ -6,9 +6,9 @@ import axios from 'axios';
 
 const date = new Date(2023, 1, 28);
 const datee = Date.now();
-console.log(datee);
-
-console.log(date.getTimezoneOffset());
+console.log('Date now ', datee);
+const ms = new Date(Date.parse('2022-03-17'));
+console.log('ms', ms);
 const count = ref(0);
 const question = ref('');
 const answer = ref('Questions usually contain a question mark. ;-)');
@@ -17,10 +17,6 @@ date.setDate(date.getDate() + 2);
 fetch('https://yesno.wtf/api')
   .then((response) => response.json())
   .then((json) => console.log(json));
-
-function addMore() {
-  count.value++;
-}
 
 watch(
   question,

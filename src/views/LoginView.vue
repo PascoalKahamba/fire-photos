@@ -1,8 +1,26 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
+import { errorMessage } from './CreateAccount.vue';
+
+const username = ref('');
+const password = ref('');
+const error = ref(false);
+const router = useRouter();
+
+const errorUsername = computed(() => errorMessage(username.value));
+const errorPassword = computed(() => errorMessage(password.value));
 
 function doLogin() {
-  console.log('User login');
+  if (errorMessage(username.value) || errorMessage(password.value)) {
+    error.value = true;
+    return;
+  }
+  username.value = '';
+  password.value = '';
+  error.value = false;
+  // router.push('/profile');
+  router.push('/');
 }
 </script>
 <template>
@@ -18,26 +36,29 @@ function doLogin() {
     >
       <h1 class="self-center font-semibold text-2xl">Login</h1>
       <div>
-        <label for="user">Usuario: </label>
+        <label for="username">Usuario: </label>
         <p>
           <input
             type="text"
             class="border-none p-3 w-[95%] bg-slate-200 rounded-md outline-blue-700"
-            id="user"
+            id="username"
           />
+          <span class="text-red-600 italic" v-show="error && errorUsername">Usuário invalido!</span>
         </p>
       </div>
       <div>
         <label for="password">Senha: </label>
         <p>
           <input
-            type="text"
+            type="password"
             class="border-none p-3 w-[95%] bg-slate-200 rounded-md outline-blue-700"
             id="password"
           />
+          <span class="text-red-600 italic" v-show="error && errorPassword">Senha invalido!</span>
         </p>
       </div>
       <button
+        type="submit"
         class="bg-blue-700 p-3 w-28 self-center radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
       >
         Entrar

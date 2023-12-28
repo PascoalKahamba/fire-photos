@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref, computed } from 'vue';
+import axios from 'axios';
 
 const username = ref('');
 const email = ref('');
@@ -8,8 +9,12 @@ const password = ref('');
 const error = ref(false);
 const router = useRouter();
 
-function errorMessage(field: string) {
+export function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
+}
+
+async function sendData(username: string, email: string, password: string) {
+  await axios.post('/', { username, email, password });
 }
 
 const errorUsername = computed(() => errorMessage(username.value));
@@ -25,6 +30,7 @@ function createAccount() {
   email.value = '';
   password.value = '';
   error.value = false;
+  sendData(username.value, email.value, password.value);
   router.push('/login');
 }
 </script>
@@ -68,7 +74,7 @@ function createAccount() {
         <label for="password">Senha: </label>
         <p>
           <input
-            type="text"
+            type="password"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
             id="password"
             v-model="password"

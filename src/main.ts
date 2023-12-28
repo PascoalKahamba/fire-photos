@@ -1,14 +1,20 @@
-import './assets/main.css'
+import './assets/main.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp, watchEffect } from 'vue';
+import { createPinia } from 'pinia';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+import router from './router';
 
-const app = createApp(App)
+watchEffect(() => {
+  AOS.init();
+});
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(createPinia());
+app.use(router);
+
+app.mount('#app');

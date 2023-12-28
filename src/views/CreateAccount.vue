@@ -7,10 +7,15 @@ function createAccount() {
 </script>
 <template>
   <section class="mt-12 flex gap-5">
-    <div class="w-[50%] h-[100vh]">
+    <div class="w-[50%] h-[100vh]" data-aos="fade-right" data-aos-duration="2000">
       <img src="../assets/create-account.jpg" alt="create-account-picture" class="w-full h-full" />
     </div>
-    <form class="w-[50%] flex flex-col gap-5 lg:self-center" @submit.prevent="createAccount">
+    <form
+      class="w-[50%] flex flex-col gap-5 lg:self-center"
+      data-aos="fade-left"
+      data-aos-duration="2000"
+      @submit.prevent="createAccount"
+    >
       <h1 class="self-center font-semibold text-2xl">Cadastre-se</h1>
       <div>
         <label for="user">Usuario: </label>

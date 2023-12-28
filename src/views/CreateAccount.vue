@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { ref, computed } from 'vue';
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(false);
+const router = useRouter();
 
 function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
 }
 
-const errorUsername = errorMessage(username.value);
-const errorEmail = errorMessage(email.value);
-const errorPassword = errorMessage(password.value);
+const errorUsername = computed(() => errorMessage(username.value));
+const errorEmail = computed(() => errorMessage(email.value));
+const errorPassword = computed(() => errorMessage(password.value));
 
 function createAccount() {
   if (errorMessage(username.value) || errorMessage(email.value) || errorMessage(password.value)) {
@@ -24,6 +25,7 @@ function createAccount() {
   email.value = '';
   password.value = '';
   error.value = false;
+  router.push('/login');
 }
 </script>
 <template>
@@ -47,7 +49,7 @@ function createAccount() {
             id="username"
             v-model="username"
           />
-          <span class="text-red-600 italic" v-show="errorUsername && error">usuario invalido!</span>
+          <span class="text-red-600 italic" v-show="error && errorUsername">usuario invalido!</span>
         </p>
       </div>
       <div>
@@ -59,7 +61,7 @@ function createAccount() {
             id="email"
             v-model="email"
           />
-          <span class="text-red-600 italic" v-show="errorEmail && error">Email invalido!</span>
+          <span class="text-red-600 italic" v-show="error && errorEmail">Email invalido!</span>
         </p>
       </div>
       <div>
@@ -71,7 +73,7 @@ function createAccount() {
             id="password"
             v-model="password"
           />
-          <span class="text-red-600 italic" v-show="errorPassword && error">Senha invalido!</span>
+          <span class="text-red-600 italic" v-show="error && errorPassword">Senha invalido!</span>
         </p>
       </div>
 

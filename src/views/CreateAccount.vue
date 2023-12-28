@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref, watchEffect } from 'vue';
+import { ref, computed } from 'vue';
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
+const error = ref(false);
+
+function errorMessage(field: string) {
+  return !field || (!Number.isNaN(+field) && true);
+}
+
+const errorUsername = errorMessage(username.value);
+const errorEmail = errorMessage(email.value);
+const errorPassword = errorMessage(password.value);
 
 function createAccount() {
-  console.log('Created Account');
-  if (!username.value || !email.value || !password.value) {
-    alert('All of the field must be filled!');
-  } else {
-    alert('Account created success!');
-    username.value = '';
-    email.value = '';
-    password.value = '';
+  if (errorMessage(username.value) || errorMessage(email.value) || errorMessage(password.value)) {
+    error.value = true;
+    return;
   }
+  username.value = '';
+  email.value = '';
+  password.value = '';
+  error.value = false;
 }
 </script>
 <template>
@@ -39,6 +47,7 @@ function createAccount() {
             id="username"
             v-model="username"
           />
+          <span class="text-red-600 italic" v-show="errorUsername && error">usuario invalido!</span>
         </p>
       </div>
       <div>
@@ -50,6 +59,7 @@ function createAccount() {
             id="email"
             v-model="email"
           />
+          <span class="text-red-600 italic" v-show="errorEmail && error">Email invalido!</span>
         </p>
       </div>
       <div>
@@ -61,6 +71,7 @@ function createAccount() {
             id="password"
             v-model="password"
           />
+          <span class="text-red-600 italic" v-show="errorPassword && error">Senha invalido!</span>
         </p>
       </div>
 
@@ -69,10 +80,6 @@ function createAccount() {
       >
         Cadastro
       </button>
-
-      <p>{{ email }}</p>
-      <p>{{ username }}</p>
-      <p>{{ password }}</p>
     </form>
   </section>
 </template>

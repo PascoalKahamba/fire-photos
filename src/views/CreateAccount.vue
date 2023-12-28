@@ -1,8 +1,21 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import { ref, watchEffect } from 'vue';
+
+const username = ref('');
+const email = ref('');
+const password = ref('');
 
 function createAccount() {
   console.log('Created Account');
+  if (!username.value || !email.value || !password.value) {
+    alert('All of the field must be filled!');
+  } else {
+    alert('Account created success!');
+    username.value = '';
+    email.value = '';
+    password.value = '';
+  }
 }
 </script>
 <template>
@@ -18,22 +31,24 @@ function createAccount() {
     >
       <h1 class="self-center font-semibold text-2xl">Cadastre-se</h1>
       <div>
-        <label for="user">Usuario: </label>
+        <label for="username">Usuario: </label>
         <p>
           <input
             type="text"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
-            id="user"
+            id="username"
+            v-model="username"
           />
         </p>
       </div>
       <div>
-        <label for="user">Email: </label>
+        <label for="email">Email: </label>
         <p>
           <input
             type="email"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
-            id="user"
+            id="email"
+            v-model="email"
           />
         </p>
       </div>
@@ -44,17 +59,20 @@ function createAccount() {
             type="text"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
             id="password"
+            v-model="password"
           />
         </p>
       </div>
 
-      <RouterLink to="/login" class="w-28 self-center">
-        <button
-          class="bg-blue-700 p-3 w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
-        >
-          Cadastro
-        </button>
-      </RouterLink>
+      <button
+        class="bg-blue-700 p-3 self-center w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
+      >
+        Cadastro
+      </button>
+
+      <p>{{ email }}</p>
+      <p>{{ username }}</p>
+      <p>{{ password }}</p>
     </form>
   </section>
 </template>

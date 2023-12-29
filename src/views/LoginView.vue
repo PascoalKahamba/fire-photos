@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, useRouter } from 'vue-router';
 import { ref, computed } from 'vue';
-import { errorMessage } from './CreateAccount.vue';
 
 const username = ref('');
 const password = ref('');
 const error = ref(false);
 const router = useRouter();
-
 const errorUsername = computed(() => errorMessage(username.value));
 const errorPassword = computed(() => errorMessage(password.value));
+
+function errorMessage(field: string) {
+  return !field || (!Number.isNaN(+field) && true);
+}
 
 function doLogin() {
   if (errorMessage(username.value) || errorMessage(password.value)) {
@@ -20,7 +22,7 @@ function doLogin() {
   password.value = '';
   error.value = false;
   // router.push('/profile');
-  router.push('/');
+  router.push('/profile');
 }
 </script>
 <template>
@@ -42,6 +44,7 @@ function doLogin() {
             type="text"
             class="border-none p-3 w-[95%] bg-slate-200 rounded-md outline-blue-700"
             id="username"
+            v-model="username"
           />
           <span class="text-red-600 italic" v-show="error && errorUsername">Usuário invalido!</span>
         </p>
@@ -53,8 +56,9 @@ function doLogin() {
             type="password"
             class="border-none p-3 w-[95%] bg-slate-200 rounded-md outline-blue-700"
             id="password"
+            v-model="password"
           />
-          <span class="text-red-600 italic" v-show="error && errorPassword">Senha invalido!</span>
+          <span class="text-red-600 italic" v-show="error && errorPassword">Senha invalida!</span>
         </p>
       </div>
       <button

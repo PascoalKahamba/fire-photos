@@ -7,9 +7,10 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(false);
+const input = ref<HTMLInputElement | null>(null);
 const router = useRouter();
 
-export function errorMessage(field: string) {
+function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
 }
 
@@ -24,6 +25,7 @@ const errorPassword = computed(() => errorMessage(password.value));
 function createAccount() {
   if (errorMessage(username.value) || errorMessage(email.value) || errorMessage(password.value)) {
     error.value = true;
+    input.value?.focus();
     return;
   }
   username.value = '';
@@ -65,6 +67,7 @@ function createAccount() {
             type="email"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
             id="email"
+            ref="input"
             v-model="email"
           />
           <span class="text-red-600 italic" v-show="error && errorEmail">Email invalido!</span>

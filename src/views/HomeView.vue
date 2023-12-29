@@ -9,6 +9,7 @@ const store = useCounterStore();
 
 watchEffect(() => {
   console.log(store.specialId);
+  console.log(store.modal);
 });
 
 watchEffect(async () => {
@@ -40,7 +41,12 @@ watchEffect(async () => {
       <div
         v-for="{ fotos, id, nome } in store.data"
         :key="id"
-        @click="store.specialId = id"
+        @click="
+          () => {
+            store.specialId = id;
+            store.modal = true;
+          }
+        "
         class="w-40 flex-auto bg-slate-200 cursor-pointer rounded-lg p-3"
       >
         <h1 class="text-center font-normal text-xl">{{ nome }}</h1>

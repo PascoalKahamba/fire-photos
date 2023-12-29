@@ -15,6 +15,7 @@ export interface DataProps {
 export const useCounterStore = defineStore('counter', () => {
   const data = ref<DataProps[]>([]);
   const specialId = ref('');
+  const modal = ref(false);
 
-  return { data, specialId };
+  return { data, specialId, modal };
 });

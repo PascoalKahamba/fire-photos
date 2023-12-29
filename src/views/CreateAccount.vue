@@ -2,11 +2,13 @@
 import { useRouter } from 'vue-router';
 import { ref, computed } from 'vue';
 import axios from 'axios';
+import ProfileView from './ProfileView.vue';
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(false);
+const count = ref(0);
 const input = ref<HTMLInputElement | null>(null);
 const router = useRouter();
 

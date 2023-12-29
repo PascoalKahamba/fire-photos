@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import axios from 'axios';
+import { api } from '../config/axios';
 import { ref, watchEffect } from 'vue';
+import { useCounterStore, type DataProps } from '../stores/counter';
 
-interface PhotosProps {
-  src: string;
-  titulo: string;
-}
-interface DataProps {
-  id: string;
-  descricao: string;
-  fotos: PhotosProps[];
-  nome: string;
-}
-
-const data = ref<DataProps[] | null>([]);
 const loading = ref(false);
 const error = ref(false);
+const store = useCounterStore();
+
+watchEffect(() => {
+  console.log(store.specialId);
+});
 
 watchEffect(async () => {
   try {
     loading.value = true;
-    const response = await axios<DataProps[]>('https://ranekapi.origamid.dev/json/api/produto');
-    data.value = response.data;
-    console.log(data.value);
+    const response = await api.get<DataProps[]>('/json/api/produto');
+    store.data = response.data;
+    console.log(store.data);
   } catch (erro) {
-    data.value = null;
-    error.value = erro as boolean;
+    error.value = true;
+    console.log(erro);
   } finally {
     loading.value = false;
     error.value = false;
@@ -34,12 +28,22 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <section class="mt-12 flex justify-center items-center">
+  <section class="mt-16 flex justify-center items-center">
     <p v-if="loading">Carregando...</p>
     <p v-else-if="error">Erro de internet por favor tente mais tarde!</p>
-    <div class="w-[75%] flex justify-center items-center flex-wrap gap-5" v-else>
-      <div v-for="{ fotos, id, nome } in data" :key="id" class="w-40 flex-auto">
-        <h1>{{ nome }}</h1>
+    <div
+      class="w-[75%] flex justify-center items-center flex-wrap gap-5"
+      v-else
+      store.data-aos="fade-down"
+      store.data-aos-duration="2000"
+    >
+      <div
+        v-for="{ fotos, id, nome } in store.data"
+        :key="id"
+        @click="store.specialId = id"
+        class="w-40 flex-auto bg-slate-200 cursor-pointer rounded-lg p-3"
+      >
+        <h1 class="text-center font-normal text-xl">{{ nome }}</h1>
         <img :src="fotos[0].src" :alt="fotos[0].titulo" />
       </div>
     </div>

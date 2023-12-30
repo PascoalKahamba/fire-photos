@@ -57,6 +57,7 @@ function createAccount() {
             type="text"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
             id="username"
+            ref="input"
             v-model="username"
           />
           <span class="text-red-600 italic" v-show="error && errorUsername">usuario invalido!</span>
@@ -69,7 +70,6 @@ function createAccount() {
             type="email"
             class="border-none p-3 w-full bg-slate-200 rounded-md outline-blue-700"
             id="email"
-            ref="input"
             v-model="email"
           />
           <span class="text-red-600 italic" v-show="error && errorEmail">Email invalido!</span>

@@ -2,6 +2,7 @@
 import { api } from '../config/axios';
 import { ref, watchEffect } from 'vue';
 import { useCounterStore, type DataProps } from '../stores/counter';
+import ModalView from '../components/ModalView.vue';
 
 const loading = ref(false);
 const error = ref(false);
@@ -44,7 +45,7 @@ watchEffect(async () => {
         @click="
           () => {
             store.specialId = id;
-            store.modal = true;
+            store.modal = !store.modal;
           }
         "
         class="w-40 flex-auto bg-slate-200 cursor-pointer rounded-lg p-3"
@@ -53,5 +54,6 @@ watchEffect(async () => {
         <img :src="fotos[0].src" :alt="fotos[0].titulo" />
       </div>
     </div>
+    <ModalView v-if="store.modal" />
   </section>
 </template>

@@ -27,7 +27,7 @@ function doLogin() {
 </script>
 <template>
   <section class="mt-12 flex gap-5">
-    <div class="w-[50%] h-[100vh]" data-aos="fade-right" data-aos-duration="2000">
+    <div class="w-[50%] h-lvh" data-aos="fade-right" data-aos-duration="2000">
       <img src="../assets/login.jpg" alt="login-picture" class="w-full h-full" />
     </div>
     <form

@@ -12,12 +12,23 @@ function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
 }
 
-function postComent() {
+function getUniqueId() {
+  return Number(Math.round(Math.random() * 100));
+}
+
+function editComment() {}
+function deleteComment() {}
+
+function postComment() {
   if (errorMessage(comment.value)) {
     error.value = true;
     return;
   }
-  console.log('New Coment');
+  store.comments.push({
+    id: getUniqueId(),
+    comment: comment.value
+  });
+  console.log(store.comments);
   comment.value = '';
   error.value = false;
 }
@@ -39,12 +50,20 @@ function postComent() {
       </div>
       <div class="p-2 flex gap-2 flex-col">
         <h1 class="text-center font-normal text-xl">{{ photo.nome }}</h1>
-        <div class="flex-1">
-          <p>Foto Bunita</p>
-          <p>Foto Bunita</p>
-          <p>Foto Bunita</p>
+        <div class="flex-1" v-for="{ id, comment } in store.comments" :key="id">
+          <p>{{ comment }}</p>
+          <button
+            class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all mr-2"
+          >
+            Editar
+          </button>
+          <button
+            class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
+          >
+            Excluir
+          </button>
         </div>
-        <form class="w-full flex gap-3 items-center" @submit.prevent="postComent">
+        <form class="w-full flex gap-3 items-center" @submit.prevent="postComment">
           <input
             type="text"
             id="comments"

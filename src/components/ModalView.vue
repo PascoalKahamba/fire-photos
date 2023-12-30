@@ -16,8 +16,11 @@ function getUniqueId() {
   return Number(Math.round(Math.random() * 100));
 }
 
-function editComment() {}
-function deleteComment() {}
+function editComment(id: number) {}
+
+function deleteComment(id: number) {
+  store.comments = store.comments.filter((comment) => comment.id !== id);
+}
 
 function postComment() {
   if (errorMessage(comment.value)) {
@@ -53,11 +56,13 @@ function postComment() {
         <div class="flex-1" v-for="{ id, comment } in store.comments" :key="id">
           <p>{{ comment }}</p>
           <button
+            @click="editComment(id)"
             class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all mr-2"
           >
             Editar
           </button>
           <button
+            @click="deleteComment(id)"
             class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
           >
             Excluir

@@ -5,7 +5,7 @@ interface PhotosProps {
   src: string;
   titulo: string;
 }
-interface CommentsProps {
+export interface CommentsProps {
   id: number;
   comment: string;
 }

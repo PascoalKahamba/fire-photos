@@ -45,7 +45,7 @@ watchEffect(async () => {
         @click="
           () => {
             store.specialId = id;
-            store.modal = !store.modal;
+            store.modal = true;
           }
         "
         class="w-40 flex-auto bg-slate-200 cursor-pointer rounded-lg p-3"

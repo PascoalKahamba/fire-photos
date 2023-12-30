@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useCounterStore } from '../stores/counter';
+import { computed, ref, watchEffect } from 'vue';
+import { useCounterStore, type CommentsProps } from '../stores/counter';
 
 const store = useCounterStore();
 const comment = ref('');
 const error = ref(false);
+const edit = ref(false);
+const oldComment = ref<CommentsProps>({ id: 0, comment: '' });
 const errorComment = computed(() => errorMessage(comment.value));
 const uniquePhoto = computed(() => store.data.filter((data) => data.id === store.specialId));
 
@@ -12,11 +14,32 @@ function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
 }
 
+watchEffect(() => console.log('edit', edit.value));
+
 function getUniqueId() {
   return Number(Math.round(Math.random() * 100));
 }
 
-function editComment(id: number) {}
+function editComment(id: number) {
+  edit.value = true;
+  oldComment.value = store.comments.find((comment) => comment.id === id) as CommentsProps;
+  comment.value = oldComment.value.comment;
+}
+
+function deeplyEdit() {
+  store.comments = store.comments.map((comments) => {
+    if (comments.id === oldComment.value.id) {
+      return {
+        id: comments.id,
+        comment: comment.value
+      };
+    } else {
+      return comments;
+    }
+  });
+
+  edit.value = false;
+}
 
 function deleteComment(id: number) {
   store.comments = store.comments.filter((comment) => comment.id !== id);
@@ -27,10 +50,14 @@ function postComment() {
     error.value = true;
     return;
   }
-  store.comments.push({
-    id: getUniqueId(),
-    comment: comment.value
-  });
+  if (!edit.value) {
+    store.comments.push({
+      id: getUniqueId(),
+      comment: comment.value
+    });
+  } else {
+    deeplyEdit();
+  }
   console.log(store.comments);
   comment.value = '';
   error.value = false;
@@ -80,11 +107,11 @@ function postComment() {
             type="submit"
             class="bg-blue-700 p-3 self-center w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
           >
-            Comentar
+            {{ edit ? 'Editar' : 'Comentar' }}
           </button>
         </form>
         <span class="text-red-600 italic -mt-2" v-show="error && errorComment"
-          >Senha invalido!</span
+          >Campo invalido!</span
         >
         <button
           class="bg-blue-700 p-3 w-32 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all self-center"

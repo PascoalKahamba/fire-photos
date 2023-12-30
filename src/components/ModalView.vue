@@ -41,6 +41,12 @@ function deeplyEdit() {
   edit.value = false;
 }
 
+function cancel() {
+  edit.value = false;
+  comment.value = '';
+  error.value = false;
+}
+
 function deleteComment(id: number) {
   store.comments = store.comments.filter((comment) => comment.id !== id);
 }
@@ -108,6 +114,14 @@ function postComment() {
             class="bg-blue-700 p-3 self-center w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
           >
             {{ edit ? 'Editar' : 'Comentar' }}
+          </button>
+          <button
+            v-if="edit"
+            type="button"
+            @click="cancel"
+            class="bg-blue-700 p-3 self-center w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
+          >
+            Cancelar
           </button>
         </form>
         <span class="text-red-600 italic -mt-2" v-show="error && errorComment"

@@ -4,7 +4,7 @@ import MyHeader from './components/MyHeader.vue';
 import ProfileView from './views/ProfileView.vue';
 import { ref } from 'vue';
 
-function stringAnagram(word1: string, word2: string) {
+function isAnagram(word1: string, word2: string) {
   let count = 0;
 
   if (word1.length !== word2.length) {
@@ -18,7 +18,7 @@ function stringAnagram(word1: string, word2: string) {
   else return false;
 }
 
-function stringAnagram2(word1: string, word2: string) {
+function isAnagram2(word1: string, word2: string) {
   if (word1.length !== word2.length) return false;
 
   if (word1.split('').sort() === word2.split('').sort()) return true;
@@ -29,7 +29,7 @@ function increment(num: number) {
   count.value = count.value + num;
 }
 
-console.log('Leetcode', stringAnagram2('anagram', 'nagaram'));
+console.log('Leetcode', isAnagram2('anagram', 'nagaram'));
 
 const people = {
   name: 'Pascoal',

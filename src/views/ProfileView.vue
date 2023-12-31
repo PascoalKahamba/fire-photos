@@ -2,16 +2,16 @@
 import ModalView from '@/components/ModalView.vue';
 import { useCounterStore } from '../stores/counter';
 
-const props = withDefaults(
-  defineProps<{
-    count: number;
-    title: string;
-  }>(),
-  {
-    count: 23
-  }
-);
-// const props = defineProps(['count', 'title']);
+// const props = withDefaults(
+//   defineProps<{
+//     count: number;
+//     title: string;
+//   }>(),
+//   {
+//     count: 23
+//   }
+// );
+const props = defineProps(['count', 'title']);
 const store = useCounterStore();
 //  defineEmits(['increment'])
 function increment() {
@@ -26,6 +26,8 @@ function increment() {
     <p>{{ store.specialId }}</p>
     <p>{{ title }}</p>
     <p>{{ count }}</p>
-    <ModalView />
+    <slot />
+
+    <!-- <ModalView /> -->
   </section>
 </template>

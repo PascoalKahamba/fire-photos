@@ -34,10 +34,10 @@ watchEffect(async () => {
     <p v-if="loading">Carregando...</p>
     <p v-else-if="error">Erro de internet por favor tente mais tarde!</p>
     <div
-      class="w-[75%] flex justify-center items-center flex-wrap gap-5"
+      class="w-[80%] flex justify-center items-center flex-wrap gap-5"
       v-else
-      store.data-aos="fade-down"
-      store.data-aos-duration="2000"
+      data-aos="fade-down"
+      data-aos-duration="2000"
     >
       <div
         v-for="{ fotos, id, nome } in store.data"
@@ -51,7 +51,7 @@ watchEffect(async () => {
         class="w-40 flex-auto bg-slate-200 cursor-pointer rounded-lg p-3"
       >
         <h1 class="text-center font-normal text-xl">{{ nome }}</h1>
-        <img :src="fotos[0].src" :alt="fotos[0].titulo" />
+        <img :src="fotos[0].src" :alt="fotos[0].titulo" class="w-full" />
       </div>
     </div>
     <ModalView v-if="store.modal" />

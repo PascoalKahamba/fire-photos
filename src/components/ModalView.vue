@@ -6,7 +6,7 @@ const store = useCounterStore();
 const comment = ref('');
 const error = ref(false);
 const edit = ref(false);
-const oldComment = ref<CommentsProps>({ id: 0, comment: '' });
+const commentEdited = ref<CommentsProps>({ id: 0, comment: '' });
 const errorComment = computed(() => errorMessage(comment.value));
 const uniquePhoto = computed(() => store.data.filter((data) => data.id === store.specialId));
 
@@ -22,13 +22,13 @@ function getUniqueId() {
 
 function editComment(id: number) {
   edit.value = true;
-  oldComment.value = store.comments.find((comment) => comment.id === id) as CommentsProps;
-  comment.value = oldComment.value.comment;
+  commentEdited.value = store.comments.find((comment) => comment.id === id) as CommentsProps;
+  comment.value = commentEdited.value.comment;
 }
 
 function deeplyEdit() {
   store.comments = store.comments.map((comments) => {
-    if (comments.id === oldComment.value.id) {
+    if (comments.id === commentEdited.value.id) {
       return {
         id: comments.id,
         comment: comment.value
@@ -72,14 +72,14 @@ function postComment() {
 
 <template>
   <section
-    class="fixed z-[1000] w-full h-full bg-slate-100 flex justify-center items-center top-0 opacity-10"
+    class="fixed z-[1000] w-lvw h-lvh bg-slate-100 flex justify-center items-center top-0 opacity-10"
     data-aos="zoom-in"
     data-aos-duration="200"
   >
     <div
       v-for="photo in uniquePhoto"
       :key="photo.id"
-      class="w-[72%] overflow-y-auto rounded-lg bg-white flex gap-2 flex-col mb-40"
+      class="w-[70%] overflow-y-auto rounded-lg bg-white mt-44 max-h-lvh flex gap-2 flex-col mb-40"
     >
       <div class="w-full h-[380px]">
         <img :src="photo.fotos[0].src" :alt="photo.fotos[0].src" class="w-full h-full" />

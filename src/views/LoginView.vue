@@ -22,7 +22,7 @@ function doLogin() {
   password.value = '';
   error.value = false;
   // router.push('/profile');
-  router.push('/profile');
+  router.push('/');
 }
 </script>
 <template>

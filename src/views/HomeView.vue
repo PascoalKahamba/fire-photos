@@ -54,6 +54,6 @@ watchEffect(async () => {
         <img :src="fotos[0].src" :alt="fotos[0].titulo" class="w-full" />
       </div>
     </div>
-    <ModalView v-if="store.modal" />
+    <ModalView v-if="store.modal" data="Ndondi" />
   </section>
 </template>

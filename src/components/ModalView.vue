@@ -2,6 +2,28 @@
 import { computed, ref, watchEffect } from 'vue';
 import { useCounterStore, type CommentsProps } from '../stores/counter';
 
+const props = defineProps({
+  count: {
+    type: Number,
+    // required: true
+    default: 300
+  },
+  people: {
+    type: Object,
+    default() {
+      return { name: 'Pascoal', age: 21 };
+    }
+  },
+  data: {
+    validator(value: string) {
+      return ['Pascoal', 'Ndondi', 'Kahamba'].includes(value);
+    }
+  }
+});
+
+const count = ref(props.count);
+console.log(props.people);
+console.log(props.data);
 const store = useCounterStore();
 const comment = ref('');
 const error = ref(false);
@@ -13,6 +35,8 @@ const uniquePhoto = computed(() => store.data.filter((data) => data.id === store
 function errorMessage(field: string) {
   return !field || (!Number.isNaN(+field) && true);
 }
+
+console.log('count ', count.value);
 
 watchEffect(() => console.log('edit', edit.value));
 
@@ -90,13 +114,13 @@ function postComment() {
           <p>{{ comment }}</p>
           <button
             @click="editComment(id)"
-            class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all mr-2"
+            class="bg-blue-700 p-1 text-xs self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all mr-2"
           >
             Editar
           </button>
           <button
             @click="deleteComment(id)"
-            class="bg-blue-700 p-2 self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
+            class="bg-blue-700 p-1 text-xs self-center w-auto radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
           >
             Excluir
           </button>
@@ -128,7 +152,7 @@ function postComment() {
           >Campo invalido!</span
         >
         <button
-          class="bg-blue-700 p-3 w-32 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all self-center"
+          class="bg-blue-700 p-2 w-32 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all self-center mb-3"
           @click="store.modal = false"
         >
           Fechar Modal

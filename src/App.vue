@@ -2,49 +2,49 @@
 import { RouterView } from 'vue-router';
 import MyHeader from './components/MyHeader.vue';
 import ProfileView from './views/ProfileView.vue';
+import HomeView from './views/HomeView.vue';
+import LoginView from './views/LoginView.vue';
 import { ref } from 'vue';
-
-function isAnagram(word1: string, word2: string) {
-  let count = 0;
-
-  if (word1.length !== word2.length) {
-    return false;
-  }
-  word1.split('').forEach((word) => {
-    if (word2.includes(word)) count++;
-  });
-
-  if (word1.length === count) return true;
-  else return false;
-}
-
-function isAnagram2(word1: string, word2: string) {
-  if (word1.length !== word2.length) return false;
-
-  if (word1.split('').sort() === word2.split('').sort()) return true;
-  else return false;
-}
-const count = ref(0);
-function increment(num: number) {
-  count.value = count.value + num;
-}
-
-console.log('Leetcode', isAnagram2('anagram', 'nagaram'));
-
-const people = {
-  name: 'Pascoal',
-  age: 21,
-  toJSON() {
-    return this.age;
-  }
-};
-
-console.log(JSON.stringify(people));
 </script>
 
 <template>
   <section class="absolute">
     <MyHeader msg="Hello World" />
+
     <RouterView />
   </section>
 </template>
+
+<style scoped>
+.demo {
+  font-family: sans-serif;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  padding: 20px 30px;
+  margin-top: 1em;
+  margin-bottom: 40px;
+  user-select: none;
+  overflow-x: auto;
+}
+
+.tab-button {
+  padding: 6px 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f0f0f0;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.tab-button:hover {
+  background: #e0e0e0;
+}
+.tab-button.active {
+  background: #e0e0e0;
+}
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+</style>

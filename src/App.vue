@@ -48,8 +48,8 @@ provide('key', count);
 <template>
   <section class="absolute">
     <MyHeader msg="Hello World" />
-    <ProfileView @increment="handleClick" class="hello" style="{{ color: red; }}" />
-    <!-- <RouterView /> -->
+    <!-- <ProfileView @increment="handleClick" class="hello" style="{{ color: red; }}" /> -->
+    <RouterView />
   </section>
 </template>
 

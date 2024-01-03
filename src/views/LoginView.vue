@@ -21,7 +21,6 @@ function doLogin() {
   username.value = '';
   password.value = '';
   error.value = false;
-  // router.push('/profile');
   router.push('/');
 }
 </script>
@@ -76,7 +75,7 @@ function doLogin() {
       <p>Ainda não possui conta? Cadastre-se no site.</p>
       <RouterLink to="/createAccount" class="w-28">
         <button
-          class="bg-blue-700 p-3 w-28 radius rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
+          class="bg-blue-700 p-3 w-28 radius mb-3 rounded-lg text-slate-200 hover:bg-blue-500 transition-all"
         >
           Cadastro
         </button>

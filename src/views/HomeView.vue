@@ -21,10 +21,11 @@ watchEffect(async () => {
     console.log(store.data);
   } catch (erro) {
     error.value = true;
-    console.log(erro);
+    console.log(error.value);
+    console.log('Error fetch', erro);
   } finally {
     loading.value = false;
-    error.value = false;
+    // error.value = false;
   }
 });
 </script>

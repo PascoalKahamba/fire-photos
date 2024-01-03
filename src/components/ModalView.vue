@@ -8,6 +8,9 @@ const props = defineProps({
     // required: true
     default: 300
   },
+  titleModifiers: {
+    default: () => ({})
+  },
   people: {
     type: Object,
     default() {
@@ -20,6 +23,8 @@ const props = defineProps({
     }
   }
 });
+
+console.log(props.titleModifiers);
 
 const count = ref(props.count);
 console.log(props.people);

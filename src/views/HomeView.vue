@@ -6,6 +6,7 @@ import ModalView from '../components/ModalView.vue';
 
 const loading = ref(false);
 const error = ref(false);
+const input = ref('');
 const store = useCounterStore();
 
 watchEffect(() => {
@@ -55,6 +56,6 @@ watchEffect(async () => {
         <img :src="fotos[0].src" :alt="fotos[0].titulo" class="w-full" />
       </div>
     </div>
-    <ModalView v-if="store.modal" data="Ndondi" />
+    <ModalView v-if="store.modal" data="Ndondi" v-model:title.capitalize="input" />
   </section>
 </template>
